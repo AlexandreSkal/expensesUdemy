@@ -1,6 +1,9 @@
-import 'package:expenses/model/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'dart:math';
+
+import 'package:expenses/model/transaction.dart';
+import './components/transaction_form.dart';
+import './components/transaction_list.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -11,9 +14,12 @@ class ExpensesApp extends StatelessWidget {
   }
 }
 
-class MyHomeApp extends StatelessWidget {
-  final titleControler = TextEditingController();
-  final valueController = TextEditingController();
+class MyHomeApp extends StatefulWidget {
+  @override
+  _MyHomeAppState createState() => _MyHomeAppState();
+}
+
+class _MyHomeAppState extends State<MyHomeApp> {
   final _transactions = [
     Transaction(
       id: '1',
@@ -28,13 +34,43 @@ class MyHomeApp extends StatelessWidget {
       date: DateTime.now(),
     ),
   ];
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransaction);
+      },
+    );
+  }
+
+  _addTransaction(String title, double value) {
+    final newTransaction = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _transactions.add(newTransaction);
+    });
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Despesas Pessoais'),
-        ),
-        body: Column(
+      appBar: AppBar(
+        title: Text('Despesas Pessoais'),
+        actions: [
+          IconButton(
+              onPressed: () => _openTransactionFormModal(context),
+              icon: Icon(Icons.add)),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -46,84 +82,15 @@ class MyHomeApp extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            Column(
-              children: _transactions
-                  .map((tr) => Card(
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                color: Colors.purple,
-                                width: 2,
-                              )),
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                'R\S ${tr.value.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.purple),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tr.title,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.purple),
-                                ),
-                                Text(
-                                  DateFormat('dd MM y').format(tr.date),
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey[700]),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ))
-                  .toList(),
-            ),
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: titleControler,
-                      decoration: InputDecoration(
-                        labelText: 'Título',
-                      ),
-                    ),
-                    TextField(
-                      controller: valueController,
-                      decoration: InputDecoration(labelText: 'Valor em R\$'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Nova Transação',
-                              style: TextStyle(color: Colors.purple),
-                            )),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )
+            TransactionList(transactions: _transactions),
           ],
-        ));
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _openTransactionFormModal(context),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }
