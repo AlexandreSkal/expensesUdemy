@@ -10,7 +10,26 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomeApp());
+    return MaterialApp(
+      home: MyHomeApp(),
+      theme: ThemeData(
+          primaryColor: Colors.green,
+          accentColor: Colors.red,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              )),
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light().textTheme.copyWith(
+                      headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  )))),
+    );
   }
 }
 
@@ -20,19 +39,19 @@ class MyHomeApp extends StatefulWidget {
 }
 
 class _MyHomeAppState extends State<MyHomeApp> {
-  final _transactions = [
-    Transaction(
-      id: '1',
-      title: 'Novo tênis e corrida',
-      value: 310.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      title: 'conta de luz',
-      value: 180.2,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: '1',
+    //   title: 'Novo tênis e corrida',
+    //   value: 310.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: '2',
+    //   title: 'conta de luz',
+    //   value: 180.2,
+    //   date: DateTime.now(),
+    // ),
   ];
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
