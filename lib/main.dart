@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:expenses/model/transaction.dart';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
+import 'components/chart.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -13,22 +14,27 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomeApp(),
       theme: ThemeData(
-          primaryColor: Colors.green,
-          accentColor: Colors.red,
-          fontFamily: 'Quicksand',
-          textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              )),
-          appBarTheme: AppBarTheme(
-              textTheme: ThemeData.light().textTheme.copyWith(
-                      headline6: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  )))),
+        primaryColor: Colors.green,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            button: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.green[200]),
+      ),
     );
   }
 }
@@ -39,20 +45,7 @@ class MyHomeApp extends StatefulWidget {
 }
 
 class _MyHomeAppState extends State<MyHomeApp> {
-  final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: '1',
-    //   title: 'Novo tênis e corrida',
-    //   value: 310.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: '2',
-    //   title: 'conta de luz',
-    //   value: 180.2,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  final List<Transaction> _transactions = [];
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -62,12 +55,18 @@ class _MyHomeAppState extends State<MyHomeApp> {
     );
   }
 
-  _addTransaction(String title, double value) {
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((element) {
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -75,6 +74,12 @@ class _MyHomeAppState extends State<MyHomeApp> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   @override
@@ -93,15 +98,8 @@ class _MyHomeAppState extends State<MyHomeApp> {
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.yellow[100],
-                child: Text('Gráfico'),
-                elevation: 5,
-              ),
-            ),
-            TransactionList(transactions: _transactions),
+            Chart(_recentTransactions),
+            TransactionList(transactions: _transactions, onRemove: _deleteTransaction),
           ],
         ),
       ),
