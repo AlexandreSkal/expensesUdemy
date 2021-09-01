@@ -1,16 +1,28 @@
-# expenses
+# expensesUdemy
 
-A new Flutter project.
+Projeto desenvolvido acompanhando o curso do professor Leonardo Moura Leitão (Coder)
 
-## Getting Started
+Projeto para cadastro de Despesas pessoais. Nesse projeto cadastramos nossas despesas e o aplicativo mostra um remuso semanal dos gastos.
+Qualquer gasto fora do range de 7 dias não é apresentado.
 
-This project is a starting point for a Flutter application.
+![image](https://user-images.githubusercontent.com/60991421/131736747-510b8ab0-882a-4f13-96d3-dee3bc97504b.png)
 
-A few resources to get you started if this is your first Flutter project:
+No scaffold podemos cadastrar um novo gasto.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![image](https://user-images.githubusercontent.com/60991421/131736998-6747fb51-8908-4437-8d5d-0c16ab114724.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Oque aprendi no desenvolvimento desse aplicativoaté o dia 09/01/2021:
+- Uso básico de Widgets do tipo Stateless e StateFull.
+- Criar recursos adaptativos para Android e IOS.
+- tudo é Widget hehe.
+- recursos básicos de responsividade.
+- crair classes para recursos que se repetem na aplicação.
+
+No aplicativo foi utilizado vários recursos interessantes. Mas os listados acima foram os que aprendi melhor.
+
+Melhorias para o futuro no aplicativo:
+- Criar um recurso para editar um gasto já cadastrado (atualmente a única opção é deletar e cadastrar novamente o gasto).
+- Deletar automaticamente os gastos que possuem mais de 7 dias, já que para essa aplicação eles não fazem sentido.
+
+
+
