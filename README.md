@@ -1,28 +1,29 @@
 # expensesUdemy
 
-Projeto desenvolvido acompanhando o curso do professor Leonardo Moura Leitão (Coder)
+Project developed while following the course of Professor Leonardo Moura Leitão (Coder).
 
-Projeto para cadastro de Despesas pessoais. Nesse projeto cadastramos nossas despesas e o aplicativo mostra um remuso semanal dos gastos.
-Qualquer gasto fora do range de 7 dias não é apresentado.
+The project is designed for personal expense registration. With this project, we can register our expenses, and the application shows a weekly summary of the spending. Any spending outside the range of 7 days will not be displayed.
 
 ![image](https://user-images.githubusercontent.com/60991421/131736747-510b8ab0-882a-4f13-96d3-dee3bc97504b.png)
 
-No scaffold podemos cadastrar um novo gasto.
+In Scaffold, we can register a new expense.
 
 ![image](https://user-images.githubusercontent.com/60991421/131736998-6747fb51-8908-4437-8d5d-0c16ab114724.png)
 
-Oque aprendi no desenvolvimento desse aplicativoaté o dia 09/01/2021:
-- Uso básico de Widgets do tipo Stateless e StateFull.
-- Criar recursos adaptativos para Android e IOS.
-- tudo é Widget hehe.
-- recursos básicos de responsividade.
-- crair classes para recursos que se repetem na aplicação.
+What I learned in developing this application until 01/09/2021:
 
-No aplicativo foi utilizado vários recursos interessantes. Mas os listados acima foram os que aprendi melhor.
+Basic usage of both Stateless and Stateful Widgets.
+- Create adaptive resources for Android and IOS.
+- Everything is a Widget hehe.
+- Basic responsiveness features.
+- Create classes for resources that repeat in the application.
 
-Melhorias para o futuro no aplicativo:
-- Criar um recurso para editar um gasto já cadastrado (atualmente a única opção é deletar e cadastrar novamente o gasto).
-- Deletar automaticamente os gastos que possuem mais de 7 dias, já que para essa aplicação eles não fazem sentido.
+Several interesting resources were used in the application, but the ones listed above were the ones I learned the best.
+
+
+Future improvements for the application:
+- Create a feature to edit an already registered expense (currently the only option is to delete and register the expense again).
+- Automatically delete expenses that are over 7 days old, since they don't make sense for this application.
 
 
 
